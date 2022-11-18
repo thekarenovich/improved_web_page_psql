@@ -16,6 +16,28 @@ from .forms import NewsFrom, UserRegisterForm, UserLoginForm, ContactForm, Updat
 from .models import News, Category
 
 
+def edit_user(request):
+
+    from django.contrib.auth.models import User
+
+    if request.method == 'POST':
+        user_profile = User.objects.filter(username=request.user.username).first()
+        form = UserRegisterForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            user_profile = User.objects.filter(username=request.user.username).first()
+            return redirect('login')
+    if request.method == 'GET':
+        user_profile = User.objects.filter(username=request.user.username).first()
+        form = UserRegisterForm(instance=user_profile)
+
+    context = {'user_profile': user_profile, 'form': form,
+               'categories': Category.objects.annotate(cnt=Count('news', filter=F('news__is_published'))).filter(
+                   cnt__gt=0).order_by('title')}
+
+    return render(request, 'news/edit_user.html', context)
+
+
 @login_required
 def delete_user(request):
     if request.method == 'POST':

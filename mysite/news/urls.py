@@ -11,6 +11,7 @@ urlpatterns = [
     path('register/', register, name='register'),  # Регистрация
 
     path('delete_user/', delete_user, name='delete_user'),  # Удаление пользователя
+    path('edit_user/', edit_user, name='edit_user'),  # Редактирование пользователя
 
     path('news/add-news/', CreateNews.as_view(), name='add_news'),  # Добавление
     path('delete/<int:pk>/', DeleteNews.as_view(), name='delete_news'),  # Удаление записи
