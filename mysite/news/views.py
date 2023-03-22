@@ -57,18 +57,6 @@ def delete_user(request):
     return render(request, 'news/delete_user.html', context)
 
 
-# def select_lang(request, code):
-#     go_next = request.META.get('HTTP_REFERER', '/')
-#     response = HttpResponseRedirect(go_next)
-#     if code and translation.check_for_language(code):
-#         if hasattr(request, 'session'):
-#             request.session['django_language'] = code
-#         else:
-#             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, code)
-#         translation.activate(code)
-#     return response
-
-
 def email(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -222,7 +210,7 @@ class CreateNews(CreateView):
 
 class Search(ListView):
     template_name = 'news/search.html'
-    paginate_by = 3
+    paginate_by = 10
 
     def get_queryset(self):
         return News.objects.filter(title__icontains=self.request.GET.get('s'))
@@ -238,7 +226,7 @@ class HomeNews(ListView):
     model = News
     template_name = 'news/home_news_list.html'
     context_object_name = 'news'
-    paginate_by = 3
+    paginate_by = 10
     # extra_context = {'categories': Category.objects.all()}
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -263,7 +251,7 @@ class MyNews(ListView):
     model = News
     template_name = 'news/my_news.html'
     context_object_name = 'news'
-    paginate_by = 3
+    paginate_by = 10
     # extra_context = {'categories': Category.objects.all()}
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -292,7 +280,7 @@ class NewsByCategory(ListView):
     template_name = 'news/category.html'
     context_object_name = 'news'
     allow_empty = False
-    paginate_by = 3
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -314,3 +302,15 @@ class User(ListView):
 
     def get_queryset(self):
         return News.objects.filter(is_published=True)
+
+
+# def select_lang(request, code):
+#     go_next = request.META.get('HTTP_REFERER', '/')
+#     response = HttpResponseRedirect(go_next)
+#     if code and translation.check_for_language(code):
+#         if hasattr(request, 'session'):
+#             request.session['django_language'] = code
+#         else:
+#             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, code)
+#         translation.activate(code)
+#     return response

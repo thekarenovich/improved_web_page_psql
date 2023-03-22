@@ -10,23 +10,6 @@
 
 {% block content %}
 
-
-
-<!--        <main class="container">-->
-<!--          <div class="bg-light p-5 rounded">-->
-<!--            <h2>Уверены, что хотите удалить запись?</h2>-->
-<!--            <p class="lead">После удаления запись нельзя будет восстановить. Передумав, вы можете отменить действие</p>-->
-<!--            <form method="post">-->
-<!--              {% csrf_token %}-->
-<!--              <button type="submit" class="btn btn-dark">Удалить</button>-->
-<!--              <a href="{% url 'home' %}" class="btn btn-primary">Отменить</a>-->
-<!--            </form>-->
-<!--          </div>-->
-<!--        </main>-->
-
-
-
-
 {% if request.user.is_authenticated %}
 <main class="container">
     <div class="bg-light p-5 rounded">
